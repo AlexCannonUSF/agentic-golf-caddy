@@ -1,0 +1,19 @@
+{
+  "name": "Default Intermediate",
+  "skill_level": "intermediate",
+  "club_distances": {
+    "Driver": 220,
+    "3-wood": 200,
+    "5-wood": 185,
+    "4-hybrid": 175,
+    "5-iron": 165,
+    "6-iron": 155,
+    "7-iron": 145,
+    "8-iron": 135,
+    "9-iron": 125,
+    "PW": 115,
+    "SW": 80,
+    "LW": 60
+  },
+  "preferred_shot": "straight"
+}

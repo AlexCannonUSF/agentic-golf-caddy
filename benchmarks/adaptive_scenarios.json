@@ -1,0 +1,82 @@
+[
+  {
+    "case_id": "water_short_back_pin",
+    "raw_input": {
+      "distance_to_target": 150,
+      "hazard_note": "water_short",
+      "pin_position": "back",
+      "target_mode": "pin"
+    },
+    "expected_club": "6-iron",
+    "acceptable_clubs": ["6-iron"],
+    "expected_plays_like_distance": 150.0,
+    "feedback_history": [
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "8-iron", "outcome": "right"}
+    ],
+    "tags": ["adaptive", "hazard", "history"]
+  },
+  {
+    "case_id": "bunker_long_front_pin_low_confidence",
+    "raw_input": {
+      "distance_to_target": 150,
+      "hazard_note": "bunker_long",
+      "pin_position": "front",
+      "target_mode": "center_green",
+      "player_confidence": 2
+    },
+    "expected_club": "7-iron",
+    "acceptable_clubs": ["7-iron"],
+    "expected_plays_like_distance": 150.0,
+    "feedback_history": [
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "8-iron", "outcome": "right"}
+    ],
+    "tags": ["adaptive", "confidence", "pin"]
+  },
+  {
+    "case_id": "trouble_left_center_green",
+    "raw_input": {
+      "distance_to_target": 150,
+      "hazard_note": "trouble_left",
+      "target_mode": "center_green"
+    },
+    "expected_club": "6-iron",
+    "acceptable_clubs": ["6-iron"],
+    "expected_plays_like_distance": 150.0,
+    "feedback_history": [
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "8-iron", "outcome": "right"}
+    ],
+    "tags": ["adaptive", "hazard", "target_line"]
+  },
+  {
+    "case_id": "layup_water_long",
+    "raw_input": {
+      "distance_to_target": 150,
+      "target_mode": "layup",
+      "hazard_note": "water_long"
+    },
+    "expected_club": "7-iron",
+    "acceptable_clubs": ["7-iron"],
+    "expected_plays_like_distance": 150.0,
+    "feedback_history": [
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "7-iron", "outcome": "short"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "6-iron", "outcome": "on_target"},
+      {"club_used": "8-iron", "outcome": "right"}
+    ],
+    "tags": ["adaptive", "layup", "hazard"]
+  }
+]
+

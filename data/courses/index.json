@@ -1,0 +1,18 @@
+[
+  {
+    "id": "torrey_pines_south",
+    "name": "Torrey Pines South Course",
+    "hole_count": 18,
+    "osm_ref": "way/35679036",
+    "source": "osm_overpass",
+    "file_name": "torrey_pines_south.json"
+  },
+  {
+    "id": "torrey_pines_south_course",
+    "name": "Torrey Pines South Course",
+    "hole_count": 18,
+    "osm_ref": "way/35679036",
+    "source": "osm_overpass",
+    "file_name": "torrey_pines_south_course.json"
+  }
+]

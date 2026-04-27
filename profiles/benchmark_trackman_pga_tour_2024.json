@@ -1,0 +1,18 @@
+{
+  "name": "TrackMan PGA Tour Average 2024",
+  "skill_level": "scratch",
+  "club_distances": {
+    "Driver": 282,
+    "3-wood": 249,
+    "5-wood": 236,
+    "4-hybrid": 231,
+    "3-iron": 218,
+    "4-iron": 209,
+    "5-iron": 199,
+    "6-iron": 188,
+    "7-iron": 176,
+    "8-iron": 164,
+    "9-iron": 152,
+    "PW": 142
+  }
+}

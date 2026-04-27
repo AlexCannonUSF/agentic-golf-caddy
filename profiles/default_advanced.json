@@ -1,0 +1,19 @@
+{
+  "name": "Default Advanced",
+  "skill_level": "advanced",
+  "club_distances": {
+    "Driver": 250,
+    "3-wood": 230,
+    "5-wood": 215,
+    "4-hybrid": 200,
+    "5-iron": 185,
+    "6-iron": 175,
+    "7-iron": 165,
+    "8-iron": 150,
+    "9-iron": 140,
+    "PW": 130,
+    "SW": 95,
+    "LW": 75
+  },
+  "preferred_shot": "straight"
+}

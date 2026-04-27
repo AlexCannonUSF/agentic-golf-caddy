@@ -1,0 +1,67 @@
+[
+  {
+    "case_id": "missing_distance",
+    "shot_text": "Into the wind a bit, rough lie, back pin.",
+    "expected_needs_clarification": true,
+    "expected_question_contains": "yards",
+    "clarified_input": {
+      "distance_to_target": 146,
+      "wind_direction": "headwind",
+      "lie_type": "rough",
+      "pin_position": "back"
+    },
+    "expected_final_club": "6-iron",
+    "acceptable_final_clubs": ["6-iron", "7-iron"],
+    "tags": ["missing_field"]
+  },
+  {
+    "case_id": "ambiguous_wind_range",
+    "shot_text": "145 out, into the wind maybe 10-15, ball sitting down a little, back pin, I just want middle of the green.",
+    "expected_needs_clarification": true,
+    "expected_question_contains": "wind",
+    "clarified_input": {
+      "distance_to_target": 145,
+      "wind_speed": 15,
+      "wind_direction": "headwind",
+      "lie_type": "rough",
+      "pin_position": "back",
+      "target_mode": "center_green"
+    },
+    "expected_final_club": "4-hybrid",
+    "acceptable_final_clubs": ["4-hybrid", "5-iron"],
+    "tags": ["ambiguous_wind"]
+  },
+  {
+    "case_id": "clear_simple",
+    "shot_text": "150 out from the fairway, calm wind, middle pin, neutral swing.",
+    "expected_needs_clarification": false,
+    "expected_final_club": "6-iron",
+    "acceptable_final_clubs": ["6-iron", "7-iron"],
+    "tags": ["clear_input"]
+  },
+  {
+    "case_id": "breezy_unsure",
+    "shot_text": "138 out, breezy, fairway lie, front pin, play it safe.",
+    "expected_needs_clarification": true,
+    "expected_question_contains": "wind",
+    "clarified_input": {
+      "distance_to_target": 138,
+      "wind_speed": 18,
+      "lie_type": "fairway",
+      "pin_position": "front",
+      "strategy": "safe"
+    },
+    "expected_final_club": "6-iron",
+    "acceptable_final_clubs": ["6-iron", "7-iron"],
+    "tags": ["ambiguous_wind"]
+  },
+  {
+    "case_id": "layup_clear",
+    "shot_text": "205 yards out, downwind 10 mph, fairway, lay up short of the green.",
+    "expected_needs_clarification": false,
+    "expected_final_club": "3-wood",
+    "acceptable_final_clubs": ["3-wood", "5-wood"],
+    "tags": ["clear_input", "layup"]
+  }
+]
+

@@ -1,0 +1,19 @@
+{
+  "name": "Shot Scope Benchmark 20 Handicap",
+  "skill_level": "beginner",
+  "club_distances": {
+    "Driver": 225,
+    "3-wood": 195,
+    "4-hybrid": 180,
+    "4-iron": 169,
+    "5-iron": 162,
+    "6-iron": 151,
+    "7-iron": 146,
+    "8-iron": 138,
+    "9-iron": 129,
+    "PW": 108,
+    "GW": 94,
+    "SW": 85,
+    "LW": 78
+  }
+}

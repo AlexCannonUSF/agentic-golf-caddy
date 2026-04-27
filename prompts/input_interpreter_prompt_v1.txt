@@ -1,0 +1,42 @@
+You are parsing a golfer's natural-language shot description into structured JSON.
+
+Return ONLY valid JSON with this shape:
+{
+  "parsed_fields": {
+    "distance_to_target": number or null,
+    "lie_type": "tee" | "fairway" | "rough" | "deep_rough" | "bunker" | null,
+    "wind_speed": number or null,
+    "wind_direction": "headwind" | "tailwind" | "crosswind_left" | "crosswind_right" | null,
+    "elevation": "flat" | "uphill" | "downhill" | "steep_uphill" | "steep_downhill" | null,
+    "strategy": "safe" | "neutral" | "aggressive" | null,
+    "temperature": number or null,
+    "altitude_ft": number or null,
+    "target_mode": "pin" | "center_green" | "layup" | null,
+    "pin_position": "front" | "middle" | "back" | null,
+    "hazard_note": string or null,
+    "player_confidence": integer 1-5 or null
+  },
+  "field_confidence": {
+    "field_name": number between 0 and 1
+  },
+  "missing_fields": ["field_name"],
+  "ambiguous_fields": ["field_name"],
+  "course_context": {
+    "target_mode": "pin" | "center_green" | "layup",
+    "pin_position": "front" | "middle" | "back" | null,
+    "hazard_note": string or null
+  },
+  "user_intent": {
+    "goal": string or null
+  },
+  "user_facing_summary": "short summary"
+}
+
+Rules:
+- Never invent distance or club names.
+- If distance is not clearly stated, put null and include it in missing_fields.
+- If a field is uncertain, still provide your best bounded guess, but include that field in ambiguous_fields.
+- Keep hazard_note short and concrete, like "water_short" or "trouble_left".
+
+SHOT:
+{shot_text}

@@ -1,0 +1,96 @@
+[
+  {
+    "case_id": "basic_150_fairway",
+    "raw_input": {
+      "distance_to_target": 150
+    },
+    "expected_club": "6-iron",
+    "acceptable_clubs": ["6-iron", "7-iron"],
+    "expected_plays_like_distance": 150.0,
+    "tags": ["baseline", "neutral"]
+  },
+  {
+    "case_id": "headwind_160",
+    "raw_input": {
+      "distance_to_target": 160,
+      "wind_speed": 15,
+      "wind_direction": "headwind"
+    },
+    "expected_club": "4-hybrid",
+    "acceptable_clubs": ["4-hybrid", "5-wood"],
+    "expected_plays_like_distance": 178.0,
+    "tags": ["wind", "approach"]
+  },
+  {
+    "case_id": "tailwind_145",
+    "raw_input": {
+      "distance_to_target": 145,
+      "wind_speed": 12,
+      "wind_direction": "tailwind"
+    },
+    "expected_club": "8-iron",
+    "acceptable_clubs": ["8-iron", "7-iron"],
+    "expected_plays_like_distance": 137.8,
+    "tags": ["wind", "downwind"]
+  },
+  {
+    "case_id": "rough_uphill_155",
+    "raw_input": {
+      "distance_to_target": 155,
+      "lie_type": "rough",
+      "elevation": "uphill"
+    },
+    "expected_club": "5-iron",
+    "acceptable_clubs": ["5-iron", "4-hybrid"],
+    "expected_plays_like_distance": 167.0,
+    "tags": ["lie", "elevation"]
+  },
+  {
+    "case_id": "bunker_safe_75",
+    "raw_input": {
+      "distance_to_target": 75,
+      "lie_type": "bunker",
+      "strategy": "safe"
+    },
+    "expected_club": "SW",
+    "acceptable_clubs": ["SW", "PW"],
+    "expected_plays_like_distance": 85.0,
+    "tags": ["short_game", "safe"]
+  },
+  {
+    "case_id": "cold_high_altitude_130",
+    "raw_input": {
+      "distance_to_target": 130,
+      "temperature": 45,
+      "altitude_ft": 5000
+    },
+    "expected_club": "9-iron",
+    "acceptable_clubs": ["9-iron", "PW"],
+    "expected_plays_like_distance": 124.5,
+    "tags": ["environment"]
+  },
+  {
+    "case_id": "aggressive_172",
+    "raw_input": {
+      "distance_to_target": 172,
+      "strategy": "aggressive"
+    },
+    "expected_club": "4-hybrid",
+    "acceptable_clubs": ["4-hybrid", "5-iron"],
+    "expected_plays_like_distance": 172.0,
+    "tags": ["strategy"]
+  },
+  {
+    "case_id": "center_green_back_pin_148",
+    "raw_input": {
+      "distance_to_target": 148,
+      "target_mode": "center_green",
+      "pin_position": "back"
+    },
+    "expected_club": "7-iron",
+    "acceptable_clubs": ["7-iron", "6-iron"],
+    "expected_plays_like_distance": 148.0,
+    "tags": ["targeting", "pin"]
+  }
+]
+

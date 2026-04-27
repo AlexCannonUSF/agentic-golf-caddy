@@ -1,0 +1,17 @@
+{
+  "name": "TrackMan LPGA Tour Average 2024",
+  "skill_level": "scratch",
+  "club_distances": {
+    "Driver": 223,
+    "3-wood": 200,
+    "5-wood": 189,
+    "4-hybrid": 178,
+    "4-iron": 175,
+    "5-iron": 166,
+    "6-iron": 155,
+    "7-iron": 143,
+    "8-iron": 133,
+    "9-iron": 123,
+    "PW": 111
+  }
+}

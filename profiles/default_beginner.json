@@ -1,0 +1,19 @@
+{
+  "name": "Default Beginner",
+  "skill_level": "beginner",
+  "club_distances": {
+    "Driver": 190,
+    "3-wood": 175,
+    "5-wood": 160,
+    "4-hybrid": 150,
+    "5-iron": 140,
+    "6-iron": 130,
+    "7-iron": 120,
+    "8-iron": 110,
+    "9-iron": 100,
+    "PW": 90,
+    "SW": 60,
+    "LW": 40
+  },
+  "preferred_shot": "straight"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Default Scratch",
+  "skill_level": "scratch",
+  "club_distances": {
+    "Driver": 280,
+    "3-wood": 255,
+    "5-wood": 240,
+    "4-hybrid": 225,
+    "5-iron": 210,
+    "6-iron": 195,
+    "7-iron": 180,
+    "8-iron": 165,
+    "9-iron": 150,
+    "PW": 140,
+    "SW": 105,
+    "LW": 85
+  },
+  "preferred_shot": "straight"
+}

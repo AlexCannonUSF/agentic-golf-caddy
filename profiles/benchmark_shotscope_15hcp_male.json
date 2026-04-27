@@ -1,0 +1,19 @@
+{
+  "name": "Shot Scope Benchmark 15 Handicap",
+  "skill_level": "intermediate",
+  "club_distances": {
+    "Driver": 236,
+    "3-wood": 215,
+    "4-hybrid": 197,
+    "4-iron": 186,
+    "5-iron": 169,
+    "6-iron": 162,
+    "7-iron": 154,
+    "8-iron": 146,
+    "9-iron": 136,
+    "PW": 121,
+    "GW": 104,
+    "SW": 84,
+    "LW": 75
+  }
+}

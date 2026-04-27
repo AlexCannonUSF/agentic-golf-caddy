@@ -1,0 +1,19 @@
+[
+  {
+    "place_id": 333279281,
+    "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+    "osm_type": "node",
+    "osm_id": 2854158382,
+    "lat": "40.7486553",
+    "lon": "-73.4457528",
+    "category": "leisure",
+    "type": "golf_course",
+    "place_rank": 30,
+    "importance": 0.000053077744716518156,
+    "addresstype": "leisure",
+    "name": "Bethpage Black",
+    "display_name": "Bethpage Black, Winding Road, Old Bethpage, Town of Oyster Bay, Nassau County, New York, 11804, United States",
+    "boundingbox": ["40.7486053", "40.7487053", "-73.4458028", "-73.4457028"]
+  }
+]
+

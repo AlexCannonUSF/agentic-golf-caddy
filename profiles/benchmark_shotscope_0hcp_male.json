@@ -1,0 +1,19 @@
+{
+  "name": "Shot Scope Benchmark 0 Handicap",
+  "skill_level": "scratch",
+  "club_distances": {
+    "Driver": 285,
+    "3-wood": 261,
+    "4-hybrid": 237,
+    "4-iron": 223,
+    "5-iron": 200,
+    "6-iron": 185,
+    "7-iron": 178,
+    "8-iron": 166,
+    "9-iron": 155,
+    "PW": 141,
+    "GW": 126,
+    "SW": 105,
+    "LW": 86
+  }
+}
