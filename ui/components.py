@@ -19,6 +19,10 @@ def _humanize_flag(flag: str) -> str:
     return flag.replace("_", " ").strip().title()
 
 
+def _humanize_text(value: str) -> str:
+    return value.replace("_", " ").strip()
+
+
 def render_page_hero() -> None:
     """Render the landing hero and quick usage steps."""
     st.markdown(
@@ -35,18 +39,24 @@ def render_page_hero() -> None:
             <div class="hero-steps">
                 <div class="hero-step">
                     <span>1</span>
-                    <strong>Set the player and course</strong>
-                    <small>Use the sidebar to choose the profile, hole, tee, and pin.</small>
+                    <div class="hero-step-copy">
+                        <strong>Set the player and course</strong>
+                        <small>Use the sidebar to choose the profile, hole, tee, and pin.</small>
+                    </div>
                 </div>
                 <div class="hero-step">
                     <span>2</span>
-                    <strong>Enter the shot your way</strong>
-                    <small>Use structured fields or describe the situation in plain English.</small>
+                    <div class="hero-step-copy">
+                        <strong>Enter the shot your way</strong>
+                        <small>Use structured fields or describe the situation in plain English.</small>
+                    </div>
                 </div>
                 <div class="hero-step">
                     <span>3</span>
-                    <strong>Review the fit and reasoning</strong>
-                    <small>See the recommendation, adjustments, backup club, and feedback tools.</small>
+                    <div class="hero-step-copy">
+                        <strong>Review the fit and reasoning</strong>
+                        <small>See the recommendation, adjustments, backup club, and feedback tools.</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,13 +123,13 @@ def render_context_summary(result: PipelineResult) -> None:
 
     details = [
         f"{shot_context.distance_to_target:.0f} yds",
-        f"lie: {shot_context.lie_type.value}",
-        f"target: {shot_context.target_mode.value.replace('_', ' ')}",
+        f"lie: {_humanize_text(shot_context.lie_type.value)}",
+        f"target: {_humanize_text(shot_context.target_mode.value)}",
     ]
     if shot_context.pin_position is not None:
-        details.append(f"pin: {shot_context.pin_position.value}")
+        details.append(f"pin: {_humanize_text(shot_context.pin_position.value)}")
     if shot_context.hazard_note:
-        details.append(f"hazard: {shot_context.hazard_note}")
+        details.append(f"hazard: {_humanize_text(shot_context.hazard_note)}")
     if shot_context.player_confidence is not None:
         details.append(f"player confidence: {shot_context.player_confidence}/5")
 

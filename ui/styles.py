@@ -132,14 +132,16 @@ APP_CSS = """
         border: 1px solid var(--app-line);
         border-radius: 22px;
         padding: 1rem;
+        min-width: 0;
     }
 
     .hero-step {
         display: grid;
-        grid-template-columns: 2rem 1fr;
+        grid-template-columns: 2rem minmax(0, 1fr);
         gap: 0.75rem;
         align-items: start;
         padding: 0.25rem 0;
+        min-width: 0;
     }
 
     .hero-step span {
@@ -153,6 +155,11 @@ APP_CSS = """
         color: #FFFFFF !important;
         font-weight: 700;
         box-shadow: 0 6px 14px rgba(45, 106, 57, 0.18);
+        grid-row: 1 / span 2;
+    }
+
+    .hero-step-copy {
+        min-width: 0;
     }
 
     .hero-step strong {
@@ -160,6 +167,9 @@ APP_CSS = """
         font-size: 0.96rem;
         color: var(--app-green-dark) !important;
         margin-bottom: 0.12rem;
+        line-height: 1.3;
+        white-space: normal;
+        word-break: normal;
     }
 
     .hero-step small {
@@ -167,6 +177,9 @@ APP_CSS = """
         font-size: 0.88rem;
         line-height: 1.45;
         color: var(--app-muted) !important;
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: break-word;
     }
 
     /* Setup cards */
@@ -274,21 +287,27 @@ APP_CSS = """
         background: var(--app-card);
         border: 1px solid var(--app-line);
         border-radius: 22px;
-        padding: 1.15rem;
+        padding: 1.2rem 1.25rem;
         box-shadow: var(--app-shadow-soft);
     }
 
     div[data-testid="stExpander"] details {
-        background: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.86);
         border: 1px solid var(--app-line);
         border-radius: 18px;
-        padding: 0.25rem 0.75rem;
+        padding: 0.3rem 0.8rem;
         box-shadow: var(--app-shadow-soft);
+        overflow: hidden;
     }
 
     div[data-testid="stExpander"] summary {
+        background: linear-gradient(180deg, rgba(248, 245, 238, 0.98), rgba(241, 235, 223, 0.98));
+        border: 1px solid rgba(23, 50, 31, 0.08);
+        border-radius: 14px;
         color: var(--app-green-dark) !important;
         font-weight: 700;
+        padding: 0.75rem 0.9rem;
+        margin: 0.1rem 0 0.45rem 0;
     }
 
     div[data-testid="stExpander"] details[open] {
@@ -304,6 +323,8 @@ APP_CSS = """
         color: var(--app-ink) !important;
         border: 1px solid var(--app-line-strong) !important;
         border-radius: 14px !important;
+        box-shadow: none !important;
+        min-height: 2.9rem;
     }
 
     [data-baseweb="input"] input,
@@ -311,6 +332,14 @@ APP_CSS = """
     [data-baseweb="select"] input {
         color: var(--app-ink) !important;
         -webkit-text-fill-color: var(--app-ink) !important;
+        font-size: 1rem !important;
+    }
+
+    [data-baseweb="input"] > div:focus-within,
+    [data-baseweb="select"] > div:focus-within,
+    [data-baseweb="textarea"] > div:focus-within {
+        border-color: rgba(45, 106, 57, 0.35) !important;
+        box-shadow: 0 0 0 3px rgba(45, 106, 57, 0.10) !important;
     }
 
     [data-baseweb="select"] span,
@@ -327,6 +356,25 @@ APP_CSS = """
         font-weight: 600 !important;
     }
 
+    .stRadio [role="radiogroup"] label p,
+    .stCheckbox p,
+    .stSelectbox p,
+    .stTextInput p,
+    .stNumberInput p,
+    .stTextArea p {
+        color: var(--app-ink) !important;
+        line-height: 1.35 !important;
+        word-break: normal !important;
+    }
+
+    .stRadio [role="radiogroup"] {
+        gap: 0.35rem;
+    }
+
+    .stRadio [role="radiogroup"] label {
+        padding: 0.1rem 0;
+    }
+
     ::placeholder {
         color: #8A958B !important;
         opacity: 1 !important;
@@ -338,6 +386,12 @@ APP_CSS = """
         margin-bottom: 0.95rem;
     }
 
+    .stTabs [data-baseweb="tab-highlight"],
+    .stTabs [data-baseweb="tab-border"] {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
     .stTabs [data-baseweb="tab"] {
         height: auto;
         padding: 0.7rem 1rem;
@@ -346,6 +400,7 @@ APP_CSS = """
         border: 1px solid var(--app-line);
         color: var(--app-green-dark) !important;
         font-weight: 700;
+        white-space: nowrap;
     }
 
     .stTabs [aria-selected="true"] {

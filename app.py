@@ -154,6 +154,40 @@ if "pin_error" not in st.session_state:
     st.session_state.pin_error = None
 
 
+_DISPLAY_LABELS = {
+    "tee": "Tee",
+    "fairway": "Fairway",
+    "rough": "Rough",
+    "deep_rough": "Deep Rough",
+    "bunker": "Bunker",
+    "safe": "Safe",
+    "neutral": "Neutral",
+    "aggressive": "Aggressive",
+    "headwind": "Headwind",
+    "tailwind": "Tailwind",
+    "crosswind_left": "Crosswind Left",
+    "crosswind_right": "Crosswind Right",
+    "flat": "Flat",
+    "uphill": "Uphill",
+    "downhill": "Downhill",
+    "steep_uphill": "Steep Uphill",
+    "steep_downhill": "Steep Downhill",
+    "pin": "Pin",
+    "center_green": "Center Green",
+    "layup": "Layup",
+    "front": "Front",
+    "middle": "Middle",
+    "back": "Back",
+}
+
+
+def _pretty_label(value: object) -> str:
+    text = str(value)
+    if text == "":
+        return "Not set"
+    return _DISPLAY_LABELS.get(text, text.replace("_", " ").strip().title())
+
+
 def _store_result(result: PipelineResult, profile_name: str) -> None:
     st.session_state.latest_result = result
     st.session_state.latest_profile_name = profile_name
@@ -980,12 +1014,14 @@ with main_input_col:
                     index=["tee", "fairway", "rough", "deep_rough", "bunker"].index(
                         _get_default("lie_type", "fairway")
                     ),
+                    format_func=_pretty_label,
                 )
             with col_strategy:
                 strategy = st.radio(
                     "Strategy",
                     options=["safe", "neutral", "aggressive"],
                     index=["safe", "neutral", "aggressive"].index(_get_default("strategy", "neutral")),
+                    format_func=_pretty_label,
                 )
 
             col_wind, col_wind_dir = st.columns(2)
@@ -1002,6 +1038,7 @@ with main_input_col:
                     index=["headwind", "tailwind", "crosswind_left", "crosswind_right"].index(
                         default_wind_direction
                     ),
+                    format_func=_pretty_label,
                 )
 
             elevation = st.selectbox(
@@ -1010,6 +1047,7 @@ with main_input_col:
                 index=["flat", "uphill", "downhill", "steep_uphill", "steep_downhill"].index(
                     default_elevation
                 ),
+                format_func=_pretty_label,
             )
 
             with st.expander("Advanced Context", expanded=False):
@@ -1037,6 +1075,7 @@ with main_input_col:
                         "Target mode",
                         options=["pin", "center_green", "layup"],
                         index=["pin", "center_green", "layup"].index(_get_default("target_mode", "pin")),
+                        format_func=_pretty_label,
                     )
                 with col_pin_position:
                     pin_options = ["", "front", "middle", "back"]
@@ -1045,6 +1084,7 @@ with main_input_col:
                         "Pin position",
                         options=pin_options,
                         index=pin_options.index(default_pin),
+                        format_func=_pretty_label,
                     )
 
                 hazard_note = st.text_input(

@@ -2,6 +2,8 @@
 
 A bounded multi-agent golf caddie built in Python and Streamlit.
 
+Repository: `https://github.com/AlexCannonUSF/agentic-golf-caddy`
+
 The project keeps the club-distance math deterministic for reliability, then adds AI around that core for:
 - free-text shot parsing
 - selective clarification
@@ -61,7 +63,21 @@ The app runs a hybrid pipeline instead of a single black-box prompt:
 
 ### Requirements
 - Python 3.10+
-- `pip install -r requirements.txt`
+- Git
+- Optional: `OPENAI_API_KEY` for LLM-powered interpretation, strategy notes, and coaching copy. Without it, the app still runs with deterministic fallbacks.
+
+### Install
+
+```bash
+git clone https://github.com/AlexCannonUSF/agentic-golf-caddy.git
+cd agentic-golf-caddy
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+If you want the optional LLM features, edit `.env` and set `OPENAI_API_KEY`.
 
 ### Run tests
 
@@ -82,6 +98,12 @@ pytest
 
 ```bash
 python main.py
+```
+
+You can also run:
+
+```bash
+./run_app.sh
 ```
 
 ## Fastest demo flow for grading
@@ -196,8 +218,20 @@ Source notes live in `docs/BENCHMARK_PROFILES.md`.
 - `evaluation/` benchmark and run-evaluation tooling
 - `benchmarks/` starter scenario datasets
 - `profiles/` built-in and saved player profiles
+- `prompts/` prompt templates used by optional LLM-backed agents
+- `scripts/` command-line utilities for evaluation reports
+- `tests/` regression and integration tests
 - `docs/` project plans and profile documentation
+- `docs/submission/` presentation, speaker prep, and demo walkthrough assets
 - `data/` local cache, feedback, runs, players, pins, and courses
+
+Generated local files are intentionally ignored:
+- `data/cache/`
+- `data/evaluation/`
+- `data/players/`
+- `data/pins/`
+- `profiles/imported_*.json`
+- local virtual environments, IDE files, Python caches, logs, and Office lock files
 
 ## Submission notes
 
@@ -211,6 +245,25 @@ Current boundaries:
 - The benchmark suite is most directly calibrated to the matching profile assumptions rather than every profile equally.
 - The app now explicitly lays up in clearly unrealistic bad-lie carry situations, but it is still a caddie assistant, not a launch-monitor-grade simulator.
 - LLM behavior is bounded by deterministic candidate clubs and grounded explanation checks.
+
+Submission assets:
+- `docs/submission/Agentic_Golf_Caddy_Final_Presentation.pptx`
+- `docs/submission/Agentic_Golf_Caddy_Speaker_Prep.docx`
+- `docs/submission/PRESENTATION_NOTES.md`
+- `docs/submission/demo_walkthrough.mp4`
+
+## Code and source attribution
+
+Project code was developed for this class project by Alex Cannon with AI assistant support from OpenAI ChatGPT/Codex for implementation, review, and documentation. No third-party source code was copied into this repository.
+
+External data and service sources used by the application or benchmark profiles:
+- Open-Meteo Forecast API for live weather lookups.
+- USGS EPQS for elevation lookups.
+- Nominatim and OpenStreetMap / Overpass for geocoding and public course geometry.
+- Shot Scope handicap-distance data, entered from the public Golf Monthly article documented in `docs/BENCHMARK_PROFILES.md`.
+- TrackMan 2024 tour-average distance data, entered from public TrackMan/Golf Monthly tables documented in `docs/BENCHMARK_PROFILES.md`.
+
+Secrets and private user data are not committed. API keys belong in `.env`, and imported player histories or run logs are stored under ignored `data/` paths.
 
 ## Related docs
 
