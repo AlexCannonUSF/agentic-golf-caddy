@@ -32,6 +32,8 @@ def _reexec_with_project_venv_if_needed() -> None:
 
 
 def main() -> int:
+    """Start the Streamlit app from a normal Python command."""
+
     _reexec_with_project_venv_if_needed()
 
     try:

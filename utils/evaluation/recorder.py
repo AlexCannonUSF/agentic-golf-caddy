@@ -55,9 +55,13 @@ class RunRecorder:
 
     @staticmethod
     def new_run_id() -> str:
+        """Create a unique id used to connect a run with later feedback."""
+
         return uuid4().hex
 
     def append_record(self, record: RunRecord) -> None:
+        """Append one run record without rewriting the existing history file."""
+
         with self.runs_file.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record.model_dump(mode="json"), default=str))
             handle.write("\n")
@@ -77,6 +81,8 @@ class RunRecorder:
         verification: VerificationResult | None = None,
         timing_seconds: dict[str, float] | None = None,
     ) -> RunRecord:
+        """Build and persist a RunRecord from the current pipeline outputs."""
+
         status = "clarification_required" if clarification and clarification.needs_clarification else "completed"
         record = RunRecord(
             run_id=run_id,
@@ -116,6 +122,8 @@ class RunRecorder:
         player_id: str | None = None,
         profile_name: str | None = None,
     ) -> list[RunRecord]:
+        """Load run records and attach matching shot feedback when available."""
+
         if not self.runs_file.exists():
             return []
 
@@ -141,6 +149,8 @@ class RunRecorder:
 
     @staticmethod
     def promotable_records(records: list[RunRecord]) -> list[RunRecord]:
+        """Return completed runs that have enough feedback to become benchmarks."""
+
         eligible: list[RunRecord] = []
         for record in records:
             if record.decision is None or record.outcome is None or record.outcome.recommendation_rating is None:
@@ -156,6 +166,8 @@ class RunRecorder:
         player_id: str | None = None,
         profile_name: str | None = None,
     ) -> Path:
+        """Export feedback-backed real runs as benchmark JSON cases."""
+
         destination = Path(output_path or (project_root() / "benchmarks" / "real_shots.json"))
         destination.parent.mkdir(parents=True, exist_ok=True)
 

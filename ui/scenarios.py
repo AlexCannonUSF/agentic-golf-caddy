@@ -25,6 +25,8 @@ class Scenario:
     player_confidence: int | None = None
 
     def to_dict(self) -> dict:
+        """Convert the scenario into the same keys used by the input form."""
+
         return {
             "distance_to_target": self.distance_to_target,
             "lie_type": self.lie_type,

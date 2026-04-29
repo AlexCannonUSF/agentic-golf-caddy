@@ -4,6 +4,8 @@ from enum import StrEnum
 
 
 class LieType(StrEnum):
+    """Where the ball is sitting before the shot."""
+
     TEE = "tee"
     FAIRWAY = "fairway"
     ROUGH = "rough"
@@ -12,6 +14,8 @@ class LieType(StrEnum):
 
 
 class WindDirection(StrEnum):
+    """Wind direction relative to the player's target line."""
+
     HEADWIND = "headwind"
     TAILWIND = "tailwind"
     CROSSWIND_LEFT = "crosswind_left"
@@ -19,6 +23,8 @@ class WindDirection(StrEnum):
 
 
 class Elevation(StrEnum):
+    """Simple elevation buckets used by the plays-like distance engine."""
+
     FLAT = "flat"
     UPHILL = "uphill"
     DOWNHILL = "downhill"
@@ -27,12 +33,16 @@ class Elevation(StrEnum):
 
 
 class Strategy(StrEnum):
+    """Player's risk preference for the recommendation."""
+
     SAFE = "safe"
     NEUTRAL = "neutral"
     AGGRESSIVE = "aggressive"
 
 
 class SkillLevel(StrEnum):
+    """Built-in player profile tiers."""
+
     BEGINNER = "beginner"
     INTERMEDIATE = "intermediate"
     ADVANCED = "advanced"
@@ -40,30 +50,40 @@ class SkillLevel(StrEnum):
 
 
 class PreferredShot(StrEnum):
+    """Typical shot shape for a player profile."""
+
     DRAW = "draw"
     FADE = "fade"
     STRAIGHT = "straight"
 
 
 class ConfidenceLevel(StrEnum):
+    """Confidence label attached to the final club recommendation."""
+
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
 
 
 class TargetMode(StrEnum):
+    """Whether the player is aiming at the pin, green center, or layup area."""
+
     PIN = "pin"
     CENTER_GREEN = "center_green"
     LAYUP = "layup"
 
 
 class PinPosition(StrEnum):
+    """Fallback pin location when exact pin coordinates are unavailable."""
+
     FRONT = "front"
     MIDDLE = "middle"
     BACK = "back"
 
 
 class ShotOutcome(StrEnum):
+    """Post-shot outcome categories collected from user feedback."""
+
     GOOD_CONTACT = "good_contact"
     ON_TARGET = "on_target"
     SHORT = "short"
@@ -75,5 +95,7 @@ class ShotOutcome(StrEnum):
 
 
 class RecommendationRating(StrEnum):
+    """Whether the user thought the caddie recommendation was useful."""
+
     GOOD_CALL = "good_call"
     BAD_CALL = "bad_call"

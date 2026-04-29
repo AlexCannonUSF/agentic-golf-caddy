@@ -68,6 +68,8 @@ The app runs a hybrid pipeline instead of a single black-box prompt:
 
 ### Run from GitHub
 
+Copy and paste these commands into your terminal:
+
 ```bash
 git clone https://github.com/AlexCannonUSF/agentic-golf-caddy.git
 cd agentic-golf-caddy
@@ -81,7 +83,13 @@ If you want the optional LLM features, edit `.env` and set `OPENAI_API_KEY`.
 
 ### Run in the terminal
 
-After installing the requirements, start the Streamlit UI:
+After installing the requirements, make sure the virtual environment is active:
+
+```bash
+source .venv/bin/activate
+```
+
+Then start the Streamlit UI:
 
 ```bash
 python main.py
@@ -99,6 +107,20 @@ Or launch Streamlit directly:
 
 ```bash
 streamlit run app.py
+```
+
+### Terminal command checklist
+
+For a fresh checkout, this is the full terminal flow:
+
+```bash
+git clone https://github.com/AlexCannonUSF/agentic-golf-caddy.git
+cd agentic-golf-caddy
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python main.py
 ```
 
 ### Verify the project
@@ -146,6 +168,12 @@ Good demo scenarios:
 - bunker approach where the app protects against bad woods/hybrids
 - deep-rough long shot where the app explicitly switches to a layup strategy
 - free-text shot with target preference like `middle of the green`
+
+Example free-text prompts to try in the app:
+- `145 out, into the wind, back pin, I just want middle of the green`
+- `185 yards from deep rough with water short, play it safe`
+- `92 yards from a bunker, front pin, low confidence`
+- `210 to the green, downhill, trouble long, aggressive line`
 
 ## How to use the main features
 

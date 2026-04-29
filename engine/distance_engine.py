@@ -25,6 +25,8 @@ class DistanceBreakdown:
 
     @property
     def adjustments(self) -> dict[str, float]:
+        """Return adjustment components in the shape expected by the UI."""
+
         return {
             "wind": self.wind_adjustment,
             "elevation": self.elevation_adjustment,

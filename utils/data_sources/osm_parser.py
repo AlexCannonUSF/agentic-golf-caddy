@@ -113,6 +113,8 @@ def _choose_hole_number(
 
 
 def anchor_center(anchor: dict[str, Any]) -> LatLon:
+    """Return the center point used when assigning OSM elements to holes."""
+
     return anchor["center"]
 
 

@@ -26,16 +26,24 @@ from utils.validators import validate_shot_input
 
 
 class _FailingCompletions:
+    """Fake completions client used to test deterministic LLM fallbacks."""
+
     def create(self, *args: Any, **kwargs: Any) -> Any:
+        """Always fail so the evaluation can measure fallback behavior."""
+
         raise RuntimeError("Simulated LLM failure for evaluation.")
 
 
 class _FailingChat:
+    """Fake chat client that exposes the failing completions object."""
+
     def __init__(self) -> None:
         self.completions = _FailingCompletions()
 
 
 class _FailingOpenAIClient:
+    """Minimal OpenAI-compatible client used inside failure-recovery tests."""
+
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         self.chat = _FailingChat()
 
@@ -344,6 +352,8 @@ def load_profile(profile_name: str, profile_path: str | None = None) -> PlayerPr
 
 
 def main() -> int:
+    """Run benchmarks from the command line and print JSON results."""
+
     parser = argparse.ArgumentParser(description="Run benchmark evaluation for Agentic Golf Caddy.")
     parser.add_argument(
         "--profile",
@@ -366,4 +376,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -335,6 +335,8 @@ class AdaptiveStrategyAgent:
         candidate_options: list[CandidateOption],
         tendencies: PlayerTendencies,
     ) -> AdaptiveDecision:
+        """Choose a strategy-aware club from the deterministic candidate list."""
+
         logger.info("AdaptiveStrategyAgent: evaluating bounded candidate set")
         forced_layup = _forced_layup_choice(shot_context, candidate_options)
         if forced_layup is not None:

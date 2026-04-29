@@ -77,6 +77,8 @@ class ValidationResult:
 
     @property
     def is_valid(self) -> bool:
+        """True when validation produced a usable ShotContext with no errors."""
+
         return self.shot_context is not None and not self.errors
 
 
@@ -135,6 +137,8 @@ def _normalize_enum(
 
 
 def normalize_lie_type(raw_value: Any) -> str:
+    """Normalize a user-entered lie value into the internal enum string."""
+
     value, error = _normalize_enum(
         raw_value,
         field_name="lie_type",
@@ -148,6 +152,8 @@ def normalize_lie_type(raw_value: Any) -> str:
 
 
 def normalize_wind_direction(raw_value: Any) -> str:
+    """Normalize wind direction text, including common golf shorthand."""
+
     value, error = _normalize_enum(
         raw_value,
         field_name="wind_direction",
@@ -161,6 +167,8 @@ def normalize_wind_direction(raw_value: Any) -> str:
 
 
 def normalize_elevation(raw_value: Any) -> str:
+    """Normalize elevation text into a supported elevation bucket."""
+
     value, error = _normalize_enum(
         raw_value,
         field_name="elevation",
@@ -174,6 +182,8 @@ def normalize_elevation(raw_value: Any) -> str:
 
 
 def normalize_strategy(raw_value: Any) -> str:
+    """Normalize risk preference into safe, neutral, or aggressive."""
+
     value, error = _normalize_enum(
         raw_value,
         field_name="strategy",
@@ -187,6 +197,8 @@ def normalize_strategy(raw_value: Any) -> str:
 
 
 def normalize_target_mode(raw_value: Any) -> str:
+    """Normalize where the player wants to aim."""
+
     value, error = _normalize_enum(
         raw_value,
         field_name="target_mode",
@@ -200,6 +212,8 @@ def normalize_target_mode(raw_value: Any) -> str:
 
 
 def normalize_pin_position(raw_value: Any) -> str | None:
+    """Normalize optional front, middle, or back pin position text."""
+
     if raw_value is None or str(raw_value).strip() == "":
         return None
     value, error = _normalize_enum(

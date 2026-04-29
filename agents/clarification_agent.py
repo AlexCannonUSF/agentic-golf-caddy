@@ -26,6 +26,8 @@ class ClarificationAgent:
     """Determine whether ambiguity is large enough to justify a follow-up question."""
 
     def run(self, shot_intent: ShotIntent, player_profile: PlayerProfile) -> ClarificationResult:
+        """Return one targeted question only when uncertainty could change the club."""
+
         if shot_intent.raw_text == "[structured_input]":
             return ClarificationResult(
                 needs_clarification=False,

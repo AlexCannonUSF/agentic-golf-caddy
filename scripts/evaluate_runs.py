@@ -16,6 +16,8 @@ def build_report(
     player_id: str | None = None,
     profile_name: str | None = None,
 ) -> str:
+    """Load recorded runs, summarize them, and render a markdown report."""
+
     recorder = RunRecorder(runs_file)
     records = recorder.load_records(
         feedback_file=feedback_file,
@@ -27,6 +29,8 @@ def build_report(
 
 
 def main() -> int:
+    """Parse CLI arguments and write or print the real-run evaluation report."""
+
     parser = argparse.ArgumentParser(description="Evaluate real recorded Agentic Golf Caddy runs.")
     parser.add_argument("--runs-file", default=None, help="Optional path to runs.jsonl")
     parser.add_argument("--feedback-file", default=None, help="Optional path to shot_feedback.json")

@@ -51,6 +51,8 @@ class PipelineResult:
 
     @property
     def needs_clarification(self) -> bool:
+        """True when the pipeline paused before making a club recommendation."""
+
         return bool(self.clarification and self.clarification.needs_clarification)
 
 

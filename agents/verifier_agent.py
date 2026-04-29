@@ -30,6 +30,8 @@ class VerifierAgent:
         adjustments: dict[str, float] | None = None,
         adaptive_decision: AdaptiveDecision | None = None,
     ) -> VerificationResult:
+        """Check the final explanation for unsupported clubs or numbers."""
+
         allowed_clubs = {primary_club.lower(), backup_club.lower()}
         if adaptive_decision is not None:
             allowed_clubs.add(adaptive_decision.recommended_club.lower())
