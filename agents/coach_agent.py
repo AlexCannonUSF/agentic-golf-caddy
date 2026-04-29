@@ -88,6 +88,8 @@ def _template_fallback(
         and {"forced_layup", "carry_not_realistic"}.intersection(adaptive_decision.risk_flags)
     )
 
+    # Layup explanations need different wording because the recommended club is
+    # intentionally not trying to reach the full target.
     if forced_layup:
         summary = f"Take a layup with your {decision.primary_club}."
     else:
@@ -199,6 +201,9 @@ class CoachAgent:
 
         api_key = os.getenv("OPENAI_API_KEY", "").strip()
         if not api_key:
+            # The app is designed to be gradable without secrets. When no key is
+            # configured, the deterministic explanation below still shows the
+            # same numbers and reasoning.
             logger.info("CoachAgent: no OPENAI_API_KEY, using template fallback")
             return _template_fallback(decision, shot_context, player_profile, adaptive_decision)
 

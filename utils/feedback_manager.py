@@ -64,6 +64,8 @@ class FeedbackManager:
         if not feedback_items:
             return profile.tendencies
 
+        # Feedback is intentionally lightweight: each outcome nudges common miss,
+        # confidence by club, and rough dispersion estimates for future runs.
         outcome_counter: Counter[str] = Counter()
         club_total: defaultdict[str, int] = defaultdict(int)
         club_miss_total: defaultdict[str, int] = defaultdict(int)
@@ -84,6 +86,8 @@ class FeedbackManager:
         confidence_by_club: dict[str, float] = {}
         dispersion_by_club: dict[str, float] = {}
         for club_name, total in club_total.items():
+            # A higher miss rate lowers confidence and increases dispersion, so
+            # adaptive strategy can become more conservative with that club.
             miss_rate = club_miss_total[club_name] / total
             confidence_by_club[club_name] = round(max(0.1, 1.0 - miss_rate), 2)
             dispersion_by_club[club_name] = round(5.0 + (miss_rate * 20.0), 1)

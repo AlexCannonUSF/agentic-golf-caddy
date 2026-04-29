@@ -60,6 +60,9 @@ from utils.logger import setup_logging
 
 setup_logging()
 
+# Streamlit reads this file from top to bottom on every interaction, so the
+# top-level objects below are intentionally lightweight managers around files
+# and caches rather than long-running background services.
 st.set_page_config(
     page_title="AI Golf Caddy",
     page_icon="⛳",
@@ -74,6 +77,8 @@ pin_manager = PinManager()
 feedback_manager = FeedbackManager()
 run_recorder = RunRecorder()
 
+# Session state keeps form choices and the latest recommendation alive across
+# Streamlit reruns. Without these keys, every button click would reset the UI.
 if "skill_level" not in st.session_state:
     st.session_state.skill_level = "intermediate"
 

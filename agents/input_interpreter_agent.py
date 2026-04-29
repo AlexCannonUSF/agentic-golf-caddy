@@ -57,6 +57,8 @@ def _extract_json_payload(text: str) -> dict[str, Any]:
 
 
 def _structured_input_to_intent(raw_input: Mapping[str, Any]) -> ShotIntent:
+    # Structured form input is already trusted field-by-field, so this path
+    # simply wraps it in the same ShotIntent model used by free-text parsing.
     parsed_fields = {key: value for key, value in raw_input.items() if key in _SUPPORTED_FIELDS and value is not None}
     field_confidence = {key: 1.0 for key in parsed_fields}
     course_context = CourseContext(
@@ -77,6 +79,8 @@ def _structured_input_to_intent(raw_input: Mapping[str, Any]) -> ShotIntent:
 
 
 def _detect_hazard(text: str) -> str | None:
+    # Hazards are stored as compact strings because later agents only need the
+    # risk direction: short, long, left, or right.
     if "water" in text:
         if "short" in text:
             return "water_short"
@@ -118,6 +122,8 @@ def _build_summary(parsed_fields: dict[str, str | float | int | None]) -> str:
 
 
 def _heuristic_parse_shot_text(text: str) -> ShotIntent:
+    # The heuristic parser is the offline backup when no API key is configured.
+    # It looks for common golf phrases and records confidence for each field.
     lower_text = text.lower()
     parsed_fields: dict[str, str | float | int | None] = {}
     field_confidence: dict[str, float] = {}
@@ -129,6 +135,8 @@ def _heuristic_parse_shot_text(text: str) -> ShotIntent:
         r"(\d{2,3}(?:\.\d+)?)\s*out\b",
         r"(\d{2,3}(?:\.\d+)?)\s*to\s*(?:the\s*)?(?:pin|flag|green)\b",
     ]
+    # Distance is the only truly required field. If it cannot be found, the
+    # clarification agent asks one follow-up before a recommendation is made.
     for pattern in distance_patterns:
         match = re.search(pattern, lower_text)
         if match:
@@ -140,6 +148,8 @@ def _heuristic_parse_shot_text(text: str) -> ShotIntent:
 
     range_match = re.search(r"(\d{1,2})\s*(?:-|to)\s*(\d{1,2})\s*(?:mph)?", lower_text)
     if range_match:
+        # Wind ranges like "10-15 mph" are useful but uncertain, so average
+        # the range and mark the field as ambiguous.
         low, high = float(range_match.group(1)), float(range_match.group(2))
         parsed_fields["wind_speed"] = round((low + high) / 2.0, 1)
         field_confidence["wind_speed"] = 0.55
@@ -221,6 +231,8 @@ def _heuristic_parse_shot_text(text: str) -> ShotIntent:
         field_confidence["pin_position"] = 0.95
 
     goal = None
+    # Goal words become target modes, which later influence whether the caddie
+    # aims at the pin, the center of the green, or a layup window.
     if "middle of the green" in lower_text or "center of the green" in lower_text:
         parsed_fields["target_mode"] = "center_green"
         field_confidence["target_mode"] = 0.95
@@ -288,6 +300,8 @@ class InputInterpreterAgent:
         if not api_key or OpenAI is None:
             raise RuntimeError("OpenAI not available for input interpretation.")
 
+        # The LLM receives a strict prompt and must return JSON. The code still
+        # validates and filters that JSON before the rest of the pipeline sees it.
         client = OpenAI(api_key=api_key)
         prompt = self._prompt_template.replace("{shot_text}", shot_text)
         response = client.chat.completions.create(
@@ -328,6 +342,8 @@ class InputInterpreterAgent:
             logger.info("InputInterpreterAgent: parsed with LLM")
             return intent
         except RuntimeError as exc:
+            # Missing API keys are normal for grading/demo environments. The
+            # heuristic parser keeps the app fully usable without paid services.
             logger.info("InputInterpreterAgent: %s Falling back to heuristic parser.", exc)
             return _heuristic_parse_shot_text(shot_text)
         except Exception:

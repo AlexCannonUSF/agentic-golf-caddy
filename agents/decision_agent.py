@@ -19,6 +19,8 @@ class DecisionAgent:
         """Return a fully populated CaddyDecision."""
         logger.info("DecisionAgent: computing distance breakdown")
 
+        # First convert the raw target distance into a "plays-like" distance
+        # by applying wind, elevation, lie, temperature, and altitude effects.
         breakdown: DistanceBreakdown = calculate_distance_breakdown(shot_context)
         logger.debug(
             "DecisionAgent breakdown: plays_like=%.1f, adjustments=%s",
@@ -26,6 +28,8 @@ class DecisionAgent:
             breakdown.adjustments,
         )
 
+        # Then match that plays-like number against the active player's club
+        # distances. This keeps club choice deterministic and testable.
         selection: ClubSelection = select_clubs(
             breakdown.plays_like_distance,
             player_profile,
@@ -40,6 +44,8 @@ class DecisionAgent:
             selection.backup_distance,
         )
 
+        # Confidence is separate from club selection: a club can be the best
+        # available choice while still being low confidence in tough conditions.
         confidence = score_confidence(
             breakdown.plays_like_distance,
             selection.primary_distance,

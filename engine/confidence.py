@@ -26,6 +26,7 @@ def score_confidence(
     """
 
     diff = abs(float(recommended_club_distance) - float(plays_like_distance))
+    # Start with a simple distance-fit score so confidence is easy to explain.
     if diff <= 5.0:
         level = ConfidenceLevel.HIGH
     elif diff <= 10.0:
@@ -36,6 +37,8 @@ def score_confidence(
     if shot_context is None:
         return level
 
+    # Difficult conditions reduce confidence even when the yardage fit is good.
+    # This mirrors how a real caddie would treat wind, rough, and player comfort.
     extreme_wind = shot_context.wind_speed > 30.0
     steep_hill = shot_context.elevation in {Elevation.STEEP_UPHILL, Elevation.STEEP_DOWNHILL}
     deep_rough_and_steep = shot_context.lie_type == LieType.DEEP_ROUGH and steep_hill

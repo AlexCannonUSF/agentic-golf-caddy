@@ -30,6 +30,9 @@ class ClubSelection:
 def _ordered_clubs(profile: PlayerProfile) -> list[tuple[str, float]]:
     clubs = profile.club_distances
 
+    # Use the standard bag order when possible so "longer" and "shorter" clubs
+    # behave like a golfer expects. Imported profiles can still fall back to
+    # pure distance sorting if they have unusual club names.
     if all(club in clubs for club in STANDARD_BAG_ORDER):
         ordered = [(club, clubs[club]) for club in STANDARD_BAG_ORDER]
     else:
@@ -110,6 +113,8 @@ def _club_family(club_name: str) -> str:
 
 def _strategy_side_penalty(club_distance: float, target_distance: float, strategy: Strategy) -> float:
     distance_gap = club_distance - target_distance
+    # Safe strategy avoids going long; aggressive strategy avoids coming up
+    # short. Neutral strategy lets pure distance fit dominate.
     if strategy == Strategy.SAFE and distance_gap > 0:
         return round(8.0 + min(8.0, distance_gap * 0.8), 2)
     if strategy == Strategy.AGGRESSIVE and distance_gap < 0:
@@ -121,6 +126,8 @@ def _lie_penalty(club_name: str, target_distance: float, shot_context: ShotConte
     if shot_context is None:
         return 0.0
 
+    # Lie penalties encode basic golf realism. For example, a driver from a
+    # bunker should never win just because its average distance is close.
     family = _club_family(club_name)
     lie_type = shot_context.lie_type
     penalty = 0.0
@@ -170,6 +177,8 @@ def _tendency_penalty(club_name: str, player_profile: PlayerProfile) -> float:
     tendencies = player_profile.tendencies
     penalty = 0.0
 
+    # Lower confidence and wider dispersion from the player's history make a
+    # club slightly less attractive, especially when another club is close.
     confidence = tendencies.confidence_by_club.get(club_name)
     if confidence is not None:
         penalty += (0.78 - confidence) * 6.0
@@ -188,6 +197,8 @@ def _context_penalty(club_distance: float, target_distance: float, shot_context:
     penalty = 0.0
     hazard_note = (shot_context.hazard_note or "").lower()
 
+    # Hazard notes are directional. Water short favors enough club; trouble long
+    # favors staying under the target.
     if any(token in hazard_note for token in ("water_short", "bunker_short", "must_carry")) and club_distance < target_distance:
         penalty += 4.0
     if any(token in hazard_note for token in ("water_long", "bunker_long", "trouble_long")) and club_distance > target_distance:
@@ -220,6 +231,8 @@ def _club_score(
     strategy: Strategy,
     shot_context: ShotContext | None,
 ) -> float:
+    # Lower score is better. The score starts with yardage gap, then adds
+    # penalties for strategy mismatch, lie risk, personal tendencies, and hazards.
     return round(
         abs(club_distance - target_distance)
         + _strategy_side_penalty(club_distance, target_distance, strategy)
@@ -252,6 +265,8 @@ def _rank_indices(
             -ordered_clubs[idx][1],
         ),
     )
+    # Ties break toward the closer club, then the longer club so the caddie is
+    # not accidentally short when two choices are equally good.
     return ranked
 
 
@@ -262,6 +277,8 @@ def _select_backup_index(
     ranked_indices: list[int],
 ) -> int:
     primary_distance = ordered_clubs[primary_index][1]
+    # Pick a backup on the other side of the target when possible. That gives
+    # the user a clear "take more/less club if conditions change" option.
     if primary_distance < target_distance:
         opposite_side = [
             idx
@@ -319,6 +336,8 @@ def select_clubs(
         raise ValueError("Player profile has no clubs configured.")
 
     normalized_strategy = Strategy(strategy)
+    # Ranking produces a stable best club and a useful backup, while the
+    # strategy note explains the bias in plain language for the UI.
     ranked_indices = _rank_indices(
         ordered,
         plays_like_distance,
@@ -361,6 +380,8 @@ def rank_candidate_options(
     """Return the closest deterministic candidate clubs for bounded AI selection."""
 
     ordered = _ordered_clubs(player_profile)
+    # The adaptive agent receives only this shortlist. That is the main safety
+    # boundary that prevents later AI reasoning from inventing a different club.
     ranked_indices = _rank_indices(
         ordered,
         plays_like_distance,
