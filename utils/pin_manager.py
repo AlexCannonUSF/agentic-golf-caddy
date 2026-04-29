@@ -101,6 +101,7 @@ class PinManager:
             existing = self.load_sheet(course_id, resolved_date)
             holes = list(existing.holes)
         except PinSheetNotFoundError:
+            # A new date starts with an empty sheet, then this one pin is added.
             holes = []
 
         updated_pin = HolePin(
@@ -113,6 +114,8 @@ class PinManager:
         replaced = False
         next_holes: list[HolePin] = []
         for hole_pin in holes:
+            # Replace only the selected hole. Other holes for the same day stay
+            # unchanged so the sheet can build up over time.
             if hole_pin.hole_number == hole_number:
                 next_holes.append(updated_pin)
                 replaced = True

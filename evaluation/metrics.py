@@ -62,6 +62,9 @@ def summarize_scenario_outcomes(
         outcome = outcome_map.get(case.case_id)
         predicted = outcome.primary_club if outcome else None
 
+        # Metrics intentionally separate exact accuracy, nearby-club accuracy,
+        # acceptable-set accuracy, and validity so one number does not hide the
+        # reason a variant succeeded or failed.
         if outcome and outcome.produced_valid_result:
             valid_results += 1
 
@@ -117,6 +120,8 @@ def summarize_clarification_outcomes(
     for case in case_list:
         outcome = outcome_map[case.case_id]
 
+        # Clarification is scored separately from final club accuracy. The app
+        # should ask when a question helps, but should not over-ask.
         if outcome.produced_valid_result:
             valid_results += 1
 
@@ -156,4 +161,3 @@ def summarize_clarification_outcomes(
         ),
         "valid_output_rate": _round_metric(valid_results / len(case_list)) if case_list else 0.0,
     }
-

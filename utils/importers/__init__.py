@@ -15,6 +15,8 @@ from utils.importers.trackman import import_trackman_csv
 def detect_import_format(headers: list[str]) -> str:
     """Detect which importer should be used from a CSV header row."""
 
+    # Each supported source has a different set of column names. Normalizing the
+    # headers lets the app tolerate capitalization and spacing differences.
     normalized = {normalize_header(header) for header in headers}
     if {"club", "carry", "spin_rate"} <= normalized or {"club", "carry_yds", "spin_rate"} <= normalized:
         return "trackman"
@@ -30,6 +32,8 @@ def import_shot_file(data: bytes | str, *, source_name: str) -> tuple[str, list[
 
     _, headers = read_csv_rows(data)
     format_name = detect_import_format(headers)
+    # After detection, delegate to the source-specific parser so each importer
+    # only needs to understand one vendor format.
     if format_name == "trackman":
         return format_name, import_trackman_csv(data, source_name=source_name)
     if format_name == "foresight":
@@ -48,6 +52,8 @@ def save_imported_profile(
     if not shots:
         raise ValueError("No shots were parsed from the uploaded file.")
     player_id = shots[0].player_id
+    # Save the raw normalized shots and rebuild the profile from the same list
+    # so future recommendations use the imported distances immediately.
     storage_path = save_shots(shots, player_id=player_id, base_dir=base_dir)
     profile = build_profile_from_shots(shots, profile_name=profile_name)
     return profile, storage_path

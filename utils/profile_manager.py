@@ -43,6 +43,8 @@ class ProfileManager:
         resolved_profile_dir = profile_dir or env_profile_dir or (_repo_root() / "profiles")
         self.profile_dir = Path(resolved_profile_dir)
         self.default_profiles_dir = Path(default_profiles_dir or (_repo_root() / "profiles"))
+        # Profiles are plain JSON files so they are easy to inspect, edit, and
+        # include in tests without a database.
         self.profile_dir.mkdir(parents=True, exist_ok=True)
 
     def _path_for_profile_name(self, profile_name: str) -> Path:
@@ -62,6 +64,8 @@ class ProfileManager:
             candidates.append(self.profile_dir / f"{raw}.json")
         candidates.append(self._path_for_profile_name(raw))
 
+        # Accept either a stem like "default_intermediate" or a file name like
+        # "default_intermediate.json" so the UI and tests can use friendly names.
         for candidate in candidates:
             if candidate.exists() and candidate.is_file():
                 return candidate
@@ -105,6 +109,8 @@ class ProfileManager:
             raise ProfileAlreadyExistsError(f"Profile '{path.stem}' already exists.")
 
         payload = profile.model_dump(mode="json")
+        # Pydantic validates the profile before this point; writing JSON keeps
+        # the saved profile portable and readable.
         path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         return path
 

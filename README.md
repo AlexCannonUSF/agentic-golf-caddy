@@ -254,6 +254,8 @@ Source notes live in `docs/BENCHMARK_PROFILES.md`.
 
 ## Project structure
 
+For a fuller explanation of the codebase, see `docs/CODEBASE_WALKTHROUGH.md`.
+
 - `agents/` multi-agent pipeline logic
 - `engine/` deterministic golf heuristics
 - `models/` typed Pydantic contracts
@@ -308,4 +310,5 @@ Secrets and private user data are not committed. API keys belong in `.env`, and 
 
 ## Related docs
 
+- `docs/CODEBASE_WALKTHROUGH.md`
 - `docs/BENCHMARK_PROFILES.md`

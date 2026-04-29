@@ -18,6 +18,8 @@ def _slugify_name(name: str) -> str:
 
 
 def _extract_geometry(element: dict[str, Any]) -> list[LatLon]:
+    # Overpass geometry is a list of raw lat/lon dictionaries. Convert it to the
+    # same LatLon model the rest of the app uses.
     raw_points = element.get("geometry") or element.get("geom") or []
     geometry: list[LatLon] = []
     for point in raw_points:
@@ -89,6 +91,8 @@ def _choose_hole_number(
     explicit_number: int | None,
     hole_anchors: dict[int, dict[str, Any]],
 ) -> int | None:
+    # OSM features are not always tagged with a hole number. If a feature does
+    # not say which hole it belongs to, assign it by containment or nearest hole.
     if explicit_number is not None and explicit_number in hole_anchors:
         return explicit_number
 
@@ -171,6 +175,8 @@ def parse_course_payload(
         center = centroid(geometry)
 
         if golf_tag == "hole" and hole_number is not None:
+            # Hole objects act as anchors. Tees, greens, fairways, and hazards
+            # are matched back to these anchors later.
             hole_anchors[hole_number] = {
                 "polygon": geometry,
                 "center": center,
@@ -215,6 +221,8 @@ def parse_course_payload(
             collected_greens[hole_number].append(geometry)
         else:
             hazard_kind = "water" if "water" in golf_tag else golf_tag
+            # Explicitly numbered hazards go straight to that hole. Unnumbered
+            # hazards are assigned by nearest/containing hole after this loop.
             target = collected_hazards if explicit_number is not None else None
             if target is not None:
                 target[hole_number].append((hazard_kind, geometry, center))
@@ -240,6 +248,9 @@ def parse_course_payload(
     holes: list[Hole] = []
     for number in sorted(hole_anchors):
         anchor = hole_anchors[number]
+        # Pick the largest available fairway/green polygon for each hole. If OSM
+        # is missing one, fall back to the broad hole polygon so the course still
+        # loads and remains usable.
         fairway_polygon = max(
             collected_fairways.get(number, [anchor["polygon"]]),
             key=len,

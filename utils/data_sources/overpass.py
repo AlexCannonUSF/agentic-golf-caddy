@@ -24,6 +24,8 @@ def _normalize_osm_ref(osm_ref: int | str) -> str:
     raw = str(osm_ref).strip()
     if not raw:
         raise ValueError("osm_ref cannot be empty.")
+    # Users can paste either "way/123", "relation/123", or just "123".
+    # A plain number is treated as a way because that is common for course data.
     if "/" in raw:
         osm_type, osm_id = raw.split("/", 1)
         normalized_type = osm_type.strip().lower()
@@ -40,6 +42,8 @@ def _normalize_osm_ref(osm_ref: int | str) -> str:
 
 def _build_query(normalized_ref: str) -> str:
     osm_type, osm_id = normalized_ref.split("/", 1)
+    # The query starts from one course object, maps it to an area, then fetches
+    # golf features and nearby hazards inside that area.
     return f"""[out:json][timeout:45];
 {osm_type}({osm_id});
 map_to_area->.searchArea;
@@ -92,6 +96,8 @@ def fetch_course(
     last_error: Exception | None = None
     for endpoint in _endpoint_candidates():
         try:
+            # Overpass mirrors can be unreliable, so try each configured endpoint
+            # before giving up.
             logger.info("Overpass course request for %s via %s", normalized_ref, endpoint)
             payload = _fetch_from_endpoint(endpoint, query)
             active_cache.set("overpass_course", cache_key, payload)

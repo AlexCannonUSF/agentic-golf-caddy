@@ -21,6 +21,8 @@ _OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
 def _bucket_for_time(when: datetime | None) -> str:
     reference = when.astimezone(timezone.utc) if when is not None else datetime.now(timezone.utc)
     minute_bucket = (reference.minute // 15) * 15
+    # Bucket requests into 15-minute windows so repeated UI clicks reuse cache
+    # data instead of calling the weather API every time.
     bucketed = reference.replace(minute=minute_bucket, second=0, microsecond=0)
     return bucketed.isoformat()
 
@@ -105,9 +107,10 @@ def get_weather(
         logger.info("Open-Meteo weather cache hit for %.4f, %.4f", key["lat"], key["lon"])
         return WeatherObservation.model_validate(cached_payload)
 
+    # Network calls happen only on cache misses. Failures are handled by the
+    # context agent, which falls back to manual weather fields.
     logger.info("Open-Meteo weather request for %.4f, %.4f", key["lat"], key["lon"])
     payload = _fetch_weather_payload(key["lat"], key["lon"])
     observation = _parse_current(payload) if when is None else _parse_hourly(payload, when)
     active_cache.set("open_meteo", key, observation.model_dump(mode="json"))
     return observation
-

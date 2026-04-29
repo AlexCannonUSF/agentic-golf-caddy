@@ -24,6 +24,8 @@ class DiskCache:
 
     @staticmethod
     def _hash_key(key: dict[str, Any]) -> str:
+        # Hash the logical key so cache file names stay short and safe even when
+        # the key contains coordinates, dates, or long search text.
         payload = json.dumps(key, sort_keys=True, separators=(",", ":"), default=str)
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
@@ -41,6 +43,8 @@ class DiskCache:
         try:
             record = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
+            # If a cache file is ever corrupted, ignore it and let the caller
+            # fetch fresh data instead of failing the whole recommendation.
             return None
         return record.get("payload")
 
@@ -51,4 +55,3 @@ class DiskCache:
         record = {"key": key, "payload": payload}
         path.write_text(json.dumps(record, indent=2, default=str), encoding="utf-8")
         return path
-

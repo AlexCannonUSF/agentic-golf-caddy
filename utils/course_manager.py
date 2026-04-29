@@ -62,6 +62,8 @@ class CourseManager:
             raise ValueError(f"Course file failed schema validation: {path}") from exc
 
     def _write_index(self) -> None:
+        # The index is a small convenience file for the sidebar. The course
+        # JSON files remain the source of truth.
         records = []
         for path in sorted(self.course_dir.glob("*.json")):
             if path.name == "index.json":
@@ -121,6 +123,8 @@ class CourseManager:
             json.dumps(course.model_dump(mode="json"), indent=2),
             encoding="utf-8",
         )
+        # Rebuild metadata after every save so the UI can list available courses
+        # without opening every file on each page render.
         self._write_index()
         return path
 

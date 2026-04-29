@@ -43,6 +43,8 @@ def get_elevation(lat: float, lon: float, *, cache: DiskCache | None = None) -> 
         logger.info("USGS elevation cache hit for %.6f, %.6f", location.lat, location.lon)
         return round(float(cached_payload["value"]), 1)
 
+    # USGS returns elevation for one coordinate. The context agent catches
+    # failures and falls back to manually entered elevation/altitude fields.
     logger.info("USGS elevation request for %.6f, %.6f", location.lat, location.lon)
     payload = _fetch_elevation_payload(location.lat, location.lon)
     if "value" not in payload:
@@ -63,7 +65,8 @@ def get_elevation_delta(
     start_location = start if isinstance(start, LatLon) else LatLon(lat=start[0], lon=start[1])
     end_location = end if isinstance(end, LatLon) else LatLon(lat=end[0], lon=end[1])
 
+    # Delta is end minus start. Positive means the target is uphill from the
+    # player, negative means downhill.
     start_elevation = get_elevation(start_location.lat, start_location.lon, cache=cache)
     end_elevation = get_elevation(end_location.lat, end_location.lon, cache=cache)
     return round(end_elevation - start_elevation, 1)
-

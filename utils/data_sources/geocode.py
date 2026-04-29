@@ -25,6 +25,8 @@ def _throttle_nominatim() -> None:
     global _LAST_NOMINATIM_REQUEST_AT
 
     with _NOMINATIM_LOCK:
+        # Nominatim asks clients to avoid rapid repeated requests. This simple
+        # lock keeps even repeated button clicks at about one request per second.
         elapsed = time.monotonic() - _LAST_NOMINATIM_REQUEST_AT
         if elapsed < 1.0:
             time.sleep(1.0 - elapsed)
@@ -62,4 +64,3 @@ def geocode(query: str, *, cache: DiskCache | None = None) -> LatLon:
     location = LatLon(lat=payload[0]["lat"], lon=payload[0]["lon"])
     active_cache.set("nominatim", key, location.model_dump(mode="json"))
     return location
-
