@@ -80,6 +80,8 @@ def build_tendencies(shots: Iterable[ShotEvent]) -> PlayerTendencies:
     confidence_by_club: dict[str, float] = {}
     dispersion_by_club: dict[str, float] = {}
     for club, carry_values in club_carry_values.items():
+        # More consistent carry numbers produce higher confidence. Offline miss
+        # distance is folded into dispersion so strategy can avoid risky clubs.
         carry_mean = _mean(carry_values)
         carry_stddev = statistics.pstdev(carry_values) if len(carry_values) > 1 else 0.0
         raw_confidence = 1.0 - (carry_stddev / carry_mean) if carry_mean > 0 else 0.2
@@ -146,6 +148,8 @@ def save_shots(
     records = [shot.model_dump(mode="json") for shot in shot_list]
 
     try:
+        # Parquet is compact when pyarrow is installed; JSONL keeps the app
+        # usable in a fresh student environment without optional dependencies.
         import pyarrow as pa
         import pyarrow.parquet as pq
 
@@ -187,4 +191,3 @@ def load_shots(
         ]
 
     return []
-

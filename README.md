@@ -62,11 +62,11 @@ The app runs a hybrid pipeline instead of a single black-box prompt:
 ## Quick start
 
 ### Requirements
-- Python 3.10+
+- Python 3.11+
 - Git
 - Optional: `OPENAI_API_KEY` for LLM-powered interpretation, strategy notes, and coaching copy. Without it, the app still runs with deterministic fallbacks.
 
-### Install
+### Run from GitHub
 
 ```bash
 git clone https://github.com/AlexCannonUSF/agentic-golf-caddy.git
@@ -79,13 +79,41 @@ cp .env.example .env
 
 If you want the optional LLM features, edit `.env` and set `OPENAI_API_KEY`.
 
-### Run tests
+### Run in the terminal
+
+After installing the requirements, start the Streamlit UI:
+
+```bash
+python main.py
+```
+
+The app will print a local URL, usually `http://localhost:8501`.
+
+You can also run the shell wrapper:
+
+```bash
+./run_app.sh
+```
+
+Or launch Streamlit directly:
+
+```bash
+streamlit run app.py
+```
+
+### Verify the project
 
 ```bash
 pytest
 ```
 
-### Run the app
+Run the synthetic multi-agent evaluation:
+
+```bash
+python -m evaluation --profile intermediate
+```
+
+### IDE run option
 
 #### PyCharm / IntelliJ easiest path
 1. Open `main.py`.
@@ -93,18 +121,6 @@ pytest
 3. The wrapper launches Streamlit automatically.
 
 `main.py` and `run_app.sh` were set up so the app still launches cleanly when the IDE Python SDK is flaky, as long as the project `.venv` exists.
-
-#### Terminal
-
-```bash
-python main.py
-```
-
-You can also run:
-
-```bash
-./run_app.sh
-```
 
 ## Fastest demo flow for grading
 
@@ -221,8 +237,7 @@ Source notes live in `docs/BENCHMARK_PROFILES.md`.
 - `prompts/` prompt templates used by optional LLM-backed agents
 - `scripts/` command-line utilities for evaluation reports
 - `tests/` regression and integration tests
-- `docs/` project plans and profile documentation
-- `docs/submission/` presentation, speaker prep, and demo walkthrough assets
+- `docs/` source notes and project documentation
 - `data/` local cache, feedback, runs, players, pins, and courses
 
 Generated local files are intentionally ignored:
@@ -246,15 +261,13 @@ Current boundaries:
 - The app now explicitly lays up in clearly unrealistic bad-lie carry situations, but it is still a caddie assistant, not a launch-monitor-grade simulator.
 - LLM behavior is bounded by deterministic candidate clubs and grounded explanation checks.
 
-Submission assets:
-- `docs/submission/Agentic_Golf_Caddy_Final_Presentation.pptx`
-- `docs/submission/Agentic_Golf_Caddy_Speaker_Prep.docx`
-- `docs/submission/PRESENTATION_NOTES.md`
-- `docs/submission/demo_walkthrough.mp4`
+## Solo contribution
+
+This was completed as a solo project by Alex Cannon. Alex was responsible for the project idea, system design, Streamlit user interface, agent orchestration, deterministic golf engine, data importers, evaluation harness, tests, and documentation.
 
 ## Code and source attribution
 
-Project code was developed for this class project by Alex Cannon with AI assistant support from OpenAI ChatGPT/Codex for implementation, review, and documentation. No third-party source code was copied into this repository.
+Project code was developed for this class project by Alex Cannon. Claude and OpenAI ChatGPT/Codex were used as coding assistants for implementation support, refactoring, review, comments, and documentation. Alex reviewed, tested, and accepted the final code. No third-party source code was copied into this repository.
 
 External data and service sources used by the application or benchmark profiles:
 - Open-Meteo Forecast API for live weather lookups.
@@ -267,5 +280,4 @@ Secrets and private user data are not committed. API keys belong in `.env`, and 
 
 ## Related docs
 
-- `docs/REAL_DATA_INTEGRATION_PLAN.md`
 - `docs/BENCHMARK_PROFILES.md`

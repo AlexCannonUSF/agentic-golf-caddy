@@ -122,6 +122,8 @@ class RunRecorder:
         feedback_by_run_id = self._load_feedback_map(feedback_file)
         records: list[RunRecord] = []
         for raw_line in self.runs_file.read_text(encoding="utf-8").splitlines():
+            # Records are append-only JSONL so a failed later run does not
+            # corrupt earlier evaluation history.
             line = raw_line.strip()
             if not line:
                 continue

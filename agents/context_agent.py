@@ -233,6 +233,9 @@ class ContextAgent:
         pin_lat_lon, resolved_pin_source = self._resolve_pin_lat_lon(raw_input, course.id, hole, tee_location)
 
         if not explicit_distance_provided and derived_distance > 350.0:
+            # Long holes often start from the tee but should not force the app
+            # to recommend a max-distance club for every context. In that case,
+            # derive a sensible layup target from the fairway geometry.
             fairway_target = centroid(hole.fairway_polygon)
             layup_distance = haversine_yards(tee_location, fairway_target)
             if 30.0 <= layup_distance <= 350.0:
@@ -336,6 +339,8 @@ class ContextAgent:
                     logger.exception("ContextAgent: weather lookup failed, falling back to manual inputs")
 
         if weather_observation is not None:
+            # Live weather only fills fields the user left blank, unless the UI
+            # explicitly requested live conditions for this run.
             if live_weather_requested or self._is_blank(course_enriched, "wind_speed"):
                 enriched["wind_speed"] = weather_observation.wind_speed_mph
             if live_weather_requested or self._is_blank(course_enriched, "temperature"):

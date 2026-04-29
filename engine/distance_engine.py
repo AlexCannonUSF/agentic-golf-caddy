@@ -43,8 +43,12 @@ def calculate_distance_breakdown(shot_context: ShotContext) -> DistanceBreakdown
         and shot_context.origin_lat_lon is not None
         and shot_context.pin_lat_lon is not None
     ):
+        # A real pin coordinate is more precise than the manually entered
+        # distance, so use it when the player is actually targeting the pin.
         actual_distance = haversine_yards(shot_context.origin_lat_lon, shot_context.pin_lat_lon)
 
+    # Each adjustment is intentionally independent so tests can isolate the
+    # reason a shot plays longer or shorter than the raw yardage.
     wind_adjustment = calculate_wind_adjustment(shot_context.wind_speed, shot_context.wind_direction)
     elevation_adjustment = calculate_elevation_adjustment(shot_context.elevation)
     lie_adjustment = calculate_lie_adjustment(shot_context.lie_type)

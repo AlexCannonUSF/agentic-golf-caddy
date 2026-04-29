@@ -90,6 +90,8 @@ def _forced_layup_choice(
     if shot_context.lie_type not in {LieType.BUNKER, LieType.DEEP_ROUGH}:
         return None
 
+    # From bad lies, reject clubs that may match distance on paper but are not
+    # realistic to carry cleanly. The chosen layup is the longest safe option.
     safe_candidates = [option for option in candidate_options if _is_layup_safe_family(shot_context, option.club_name)]
     if not safe_candidates:
         return None
@@ -205,6 +207,8 @@ def _fallback_strategy(
         score = -option.distance_gap
         score -= _adaptive_risk_penalty(option, shot_context)
 
+        # The scoring model is deliberately small and readable: distance fit is
+        # the base score, then target preference, hazards, and history nudge it.
         if shot_context.target_mode == TargetMode.CENTER_GREEN:
             score += 1.5 if option.club_distance <= shot_context.distance_to_target else -0.5
             target_line = "center green"

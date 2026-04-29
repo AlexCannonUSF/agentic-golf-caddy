@@ -182,6 +182,9 @@ class Pipeline:
         """
         run_id = self._run_recorder.new_run_id()
         timing: dict[str, float] = {}
+
+        # Fold recent feedback into the profile before agents make a decision.
+        # This keeps learning local and deterministic for each run.
         active_profile = self._player_profile.model_copy(
             deep=True,
             update={
@@ -237,7 +240,8 @@ class Pipeline:
 
         interpreted_input = self._merge_interpreted_input(raw_input, shot_intent)
 
-        # ── Agent 1: Context ──────────────────────────────────────────
+        # Agent 1: Context. This turns free-text/structured fields plus
+        # optional course and weather data into one validated ShotContext.
         t0 = time.perf_counter()
         shot_context = self._context_agent.run(interpreted_input)
         timing["context_agent"] = round(time.perf_counter() - t0, 4)
@@ -250,7 +254,8 @@ class Pipeline:
             },
         )
 
-        # ── Agent 2: Deterministic Decision ───────────────────────────
+        # Agent 2: Deterministic Decision. Golf math lives here so the
+        # recommendation has a stable, testable base before any LLM step.
         t0 = time.perf_counter()
         deterministic_decision = self._decision_agent.run(shot_context, active_profile)
         timing["decision_agent"] = round(time.perf_counter() - t0, 4)
@@ -267,6 +272,8 @@ class Pipeline:
         if shot_context.lie_type in {LieType.BUNKER, LieType.DEEP_ROUGH} and shot_context.distance_to_target >= 160.0:
             candidate_limit = 5
 
+        # The adaptive agent can only choose from this shortlist, which keeps
+        # strategy reasoning bounded and prevents invented clubs.
         candidate_options = rank_candidate_options(
             deterministic_decision.plays_like_distance,
             active_profile,
@@ -275,7 +282,8 @@ class Pipeline:
         )
         tendencies = active_profile.tendencies
 
-        # ── Agent 3: Adaptive Strategy ────────────────────────────────
+        # Agent 3: Adaptive Strategy. This may re-rank the deterministic
+        # shortlist using hazards, lie quality, confidence, and shot history.
         t0 = time.perf_counter()
         adaptive_decision = self._adaptive_strategy_agent.run(shot_context, candidate_options, tendencies)
         timing["adaptive_strategy_agent"] = round(time.perf_counter() - t0, 4)
@@ -291,7 +299,8 @@ class Pipeline:
 
         decision = self._apply_adaptive_decision(deterministic_decision, adaptive_decision, shot_context)
 
-        # ── Agent 4: Coach ────────────────────────────────────────────
+        # Agent 4: Coach. The explanation is user-facing, but it must stay
+        # tied to the actual numbers and clubs from the decision.
         t0 = time.perf_counter()
         explanation = self._coach_agent.run(
             decision,
@@ -309,7 +318,8 @@ class Pipeline:
             },
         )
 
-        # ── Agent 5: Verifier ─────────────────────────────────────────
+        # Agent 5: Verifier. If the explanation drifts away from the decision
+        # data, replace it with the deterministic template fallback.
         t0 = time.perf_counter()
         verification = self._verifier_agent.run(
             explanation,
