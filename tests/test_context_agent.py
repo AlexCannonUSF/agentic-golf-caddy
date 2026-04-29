@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Unit tests for Agent 1: ContextAgent."""
 
 from datetime import datetime, timezone

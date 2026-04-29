@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Input interpreter agent for natural-language shot descriptions."""
 
 from __future__ import annotations
@@ -39,7 +40,12 @@ _SUPPORTED_FIELDS = {
 
 def _load_prompt_template(prompt_file: Path | None = None) -> str:
     path = prompt_file or _DEFAULT_PROMPT_FILE
-    return path.read_text(encoding="utf-8")
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if lines and lines[0].startswith("# AI disclosure:"):
+        lines = lines[1:]
+        if lines and not lines[0].strip():
+            lines = lines[1:]
+    return "\n".join(lines) + "\n"
 
 
 def _extract_json_payload(text: str) -> dict[str, Any]:

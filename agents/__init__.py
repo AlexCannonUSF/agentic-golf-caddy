@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Agent pipeline for the Agentic Golf Caddy."""
 
 from agents.adaptive_strategy_agent import AdaptiveStrategyAgent

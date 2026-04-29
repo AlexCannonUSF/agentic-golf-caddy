@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from engine.environment import calculate_altitude_adjustment, calculate_temperature_adjustment
 
 

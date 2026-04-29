@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Pin-placement models for daily course pin sheets."""
 
 from __future__ import annotations

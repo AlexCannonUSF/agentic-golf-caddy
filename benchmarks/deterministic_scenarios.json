@@ -1,5 +1,8 @@
 [
   {
+    "_ai_disclosure": "This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts."
+  },
+  {
     "case_id": "basic_150_fairway",
     "raw_input": {
       "distance_to_target": 150

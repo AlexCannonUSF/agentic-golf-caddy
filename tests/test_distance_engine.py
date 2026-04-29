@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from engine.distance_engine import calculate_distance_breakdown, calculate_plays_like_distance
 from models import ShotContext
 

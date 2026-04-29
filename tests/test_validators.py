@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 import pytest
 
 from utils.validators import InputValidationError, validate_shot_context_or_raise, validate_shot_input

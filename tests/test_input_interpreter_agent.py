@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from unittest.mock import patch
 
 from agents.input_interpreter_agent import InputInterpreterAgent

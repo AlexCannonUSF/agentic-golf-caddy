@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Additional models supporting the agentic workflow."""
 
 from __future__ import annotations

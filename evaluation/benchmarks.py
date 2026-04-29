@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Load benchmark scenarios from checked-in JSON files."""
 
 from __future__ import annotations
@@ -14,9 +15,15 @@ _BENCHMARKS_DIR = Path(__file__).resolve().parents[1] / "benchmarks"
 
 def _load_json(path: Path) -> list[dict[str, Any]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(payload, dict) and isinstance(payload.get("cases"), list):
+        payload = payload["cases"]
     if not isinstance(payload, list):
         raise ValueError(f"Benchmark file must contain a list of cases: {path}")
-    return payload
+    return [
+        item
+        for item in payload
+        if isinstance(item, dict) and "_ai_disclosure" not in item
+    ]
 
 
 def _load_tendencies(raw_value: Any) -> PlayerTendencies | None:
@@ -89,4 +96,3 @@ def load_adaptive_cases() -> list[ScenarioBenchmarkCase]:
     """Load the starter adaptive benchmark."""
 
     return load_scenario_cases("adaptive_scenarios.json")
-

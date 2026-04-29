@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 streamlit>=1.30
 pydeck>=0.8
 openai>=1.0

@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """UI modules for the Streamlit Golf Caddy application."""
 
 from ui.components import (

@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from engine.club_selector import select_clubs
 from models import LieType, PlayerProfile, PlayerTendencies, ShotContext, SkillLevel, Strategy
 

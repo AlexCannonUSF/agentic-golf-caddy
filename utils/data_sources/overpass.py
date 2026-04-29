@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Overpass API connector for golf-course geometry."""
 
 from __future__ import annotations

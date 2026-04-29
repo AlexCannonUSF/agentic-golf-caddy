@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from engine.confidence import score_confidence
 from models import ConfidenceLevel, ShotContext
 

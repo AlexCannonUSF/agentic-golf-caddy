@@ -1,3 +1,5 @@
+<!-- AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts. -->
+
 # Benchmark Profiles
 
 These benchmark profiles were added so the app can switch between publicly sourced distance models instead of only using the four synthetic defaults.

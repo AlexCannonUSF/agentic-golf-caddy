@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Evaluate recorded real-world recommendation runs and emit a markdown report."""
 
 from __future__ import annotations

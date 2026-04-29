@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Metrics and reporting helpers for real recorded recommendation runs."""
 
 from __future__ import annotations

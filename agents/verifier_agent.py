@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Verifier agent that checks explanations for grounding issues."""
 
 from __future__ import annotations

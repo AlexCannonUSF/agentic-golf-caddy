@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Confidence scoring for a club recommendation."""
 
 from models import ConfidenceLevel, Elevation, LieType, ShotContext

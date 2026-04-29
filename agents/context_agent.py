@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Agent 1: Input/Context Agent — validates and normalizes raw shot input."""
 
 from __future__ import annotations

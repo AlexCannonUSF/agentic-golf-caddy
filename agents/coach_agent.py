@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Agent 3: Coach/Explain Agent — generates human-readable recommendation explanations."""
 
 from __future__ import annotations
@@ -22,7 +23,12 @@ _DEFAULT_PROMPT_FILE = _PROMPTS_DIR / "coach_prompt_v1.txt"
 def _load_prompt_template(prompt_file: Path | None = None) -> str:
     """Read the prompt template from disk."""
     path = prompt_file or _DEFAULT_PROMPT_FILE
-    return path.read_text(encoding="utf-8")
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if lines and lines[0].startswith("# AI disclosure:"):
+        lines = lines[1:]
+        if lines and not lines[0].strip():
+            lines = lines[1:]
+    return "\n".join(lines) + "\n"
 
 
 def _format_adjustments(adjustments: dict[str, float]) -> str:

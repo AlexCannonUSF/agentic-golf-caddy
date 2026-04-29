@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """File-based course storage and lookup helpers."""
 
 from __future__ import annotations
@@ -56,6 +57,12 @@ class CourseManager:
         except json.JSONDecodeError as exc:
             raise ValueError(f"Course file contains invalid JSON: {path}") from exc
 
+        if isinstance(payload, dict):
+            # JSON has no comment syntax, so checked-in course files use a
+            # metadata field for attribution. The Course model should validate
+            # only actual course data.
+            payload.pop("_ai_disclosure", None)
+
         try:
             return Course.model_validate(payload)
         except Exception as exc:
@@ -103,7 +110,13 @@ class CourseManager:
         except json.JSONDecodeError:
             self._write_index()
             payload = json.loads(self._index_path.read_text(encoding="utf-8"))
-        return payload if isinstance(payload, list) else []
+        if not isinstance(payload, list):
+            return []
+        return [
+            record
+            for record in payload
+            if isinstance(record, dict) and "_ai_disclosure" not in record
+        ]
 
     def save_course(
         self,

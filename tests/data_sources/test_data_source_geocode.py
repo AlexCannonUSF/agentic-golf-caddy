@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 import json
 from importlib import import_module
 from pathlib import Path
@@ -22,7 +23,14 @@ class _DummyResponse:
 
 def _fixture(name: str) -> object:
     path = Path(__file__).resolve().parents[1] / "fixtures" / "data_sources" / name
-    return json.loads(path.read_text(encoding="utf-8"))
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(payload, list):
+        return [
+            item
+            for item in payload
+            if not (isinstance(item, dict) and "_ai_disclosure" in item)
+        ]
+    return payload
 
 
 def test_geocode_parses_location_and_uses_cache(tmp_path, monkeypatch) -> None:

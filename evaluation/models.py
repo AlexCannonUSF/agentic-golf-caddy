@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Typed benchmark and evaluation records."""
 
 from __future__ import annotations

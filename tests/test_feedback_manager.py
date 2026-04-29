@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from models import PlayerProfile, ShotFeedback, ShotOutcome, SkillLevel
 from utils.feedback_manager import FeedbackManager
 

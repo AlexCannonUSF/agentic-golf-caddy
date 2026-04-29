@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Persistent run-record model for real recommendation evaluation."""
 
 from __future__ import annotations

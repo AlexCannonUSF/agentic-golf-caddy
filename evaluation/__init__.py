@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Evaluation helpers for Agentic Golf Caddy."""
 
 from evaluation.benchmarks import load_adaptive_cases, load_clarification_cases, load_deterministic_cases

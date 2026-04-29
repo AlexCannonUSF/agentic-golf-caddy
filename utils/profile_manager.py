@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """File-based player profile CRUD utilities."""
 
 from __future__ import annotations
@@ -82,6 +83,12 @@ class ProfileManager:
             payload: Any = json.loads(raw_json)
         except json.JSONDecodeError as exc:
             raise ValueError(f"Profile file contains invalid JSON: {path}") from exc
+
+        if isinstance(payload, dict):
+            # JSON cannot contain real comments, so checked-in profile files use
+            # a metadata field for the AI disclosure. Remove it before strict
+            # PlayerProfile validation so the disclosure does not become app data.
+            payload.pop("_ai_disclosure", None)
 
         try:
             return PlayerProfile.model_validate(payload)

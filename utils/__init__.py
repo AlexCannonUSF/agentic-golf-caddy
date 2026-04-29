@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Utility modules used by agents and UI."""
 
 from utils.config import cache_dir, data_dir, http_timeout_seconds, nominatim_user_agent, project_root

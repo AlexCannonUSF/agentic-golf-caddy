@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Agent 2: Caddy Decision Agent — computes plays-like distance and selects clubs."""
 
 from __future__ import annotations

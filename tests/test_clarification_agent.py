@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from agents.clarification_agent import ClarificationAgent
 from models import CourseContext, PlayerProfile, ShotIntent, SkillLevel, UserIntent
 

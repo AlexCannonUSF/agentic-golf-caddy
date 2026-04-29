@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Normalized shot-history event model used for real profile imports."""
 
 from __future__ import annotations

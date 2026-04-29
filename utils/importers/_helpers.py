@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Shared helpers for shot-history CSV importers."""
 
 from __future__ import annotations
@@ -22,7 +23,13 @@ def read_csv_rows(data: bytes | str) -> tuple[list[dict[str, str]], list[str]]:
     """Read CSV bytes/text into normalized row dictionaries."""
 
     text = data.decode("utf-8-sig") if isinstance(data, bytes) else data
-    reader = csv.DictReader(io.StringIO(text))
+    # Some checked-in fixtures include a short attribution comment before the
+    # CSV header. Skipping comment lines keeps the importer useful for normal
+    # CSV exports while preserving the disclosure required for this project.
+    csv_text = "\n".join(
+        line for line in text.splitlines() if not line.lstrip().startswith("#")
+    )
+    reader = csv.DictReader(io.StringIO(csv_text))
     fieldnames = [field or "" for field in (reader.fieldnames or [])]
     rows: list[dict[str, str]] = []
 
@@ -112,4 +119,3 @@ def default_player_name(source_name: str | Path) -> str:
     stem = Path(source_name).stem
     parts = [part for part in re.split(r"[_\-\s]+", stem) if part]
     return " ".join(part.capitalize() for part in parts) or "Imported Player"
-

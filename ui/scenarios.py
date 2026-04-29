@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Pre-loaded demo scenarios for quick form auto-fill."""
 
 from __future__ import annotations

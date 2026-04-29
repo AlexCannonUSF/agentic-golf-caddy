@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Unit tests for Agent 3: CoachAgent."""
 
 from unittest.mock import MagicMock, patch

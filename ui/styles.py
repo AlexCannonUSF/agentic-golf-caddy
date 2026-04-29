@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """CSS theme constants and custom styling for the Golf Caddy app."""
 
 # Golf-themed color palette

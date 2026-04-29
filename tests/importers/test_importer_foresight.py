@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from pathlib import Path
 
 from utils import build_profile_from_shots, import_foresight_csv

@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Core deterministic heuristics engine modules."""
 
 from engine.club_selector import ClubSelection, rank_candidate_options, select_clubs

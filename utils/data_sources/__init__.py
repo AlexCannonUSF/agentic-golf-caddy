@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Public exports for external data-source helpers."""
 
 from utils.data_sources.cache import DiskCache

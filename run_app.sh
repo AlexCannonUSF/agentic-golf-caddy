@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"

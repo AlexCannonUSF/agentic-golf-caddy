@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Lightweight geographic helpers for course and hazard reasoning."""
 
 from __future__ import annotations

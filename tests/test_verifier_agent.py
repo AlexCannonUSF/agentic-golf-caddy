@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from agents.verifier_agent import VerifierAgent
 from models import Explanation, PlayerProfile, SkillLevel
 

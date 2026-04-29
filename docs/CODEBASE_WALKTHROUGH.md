@@ -1,3 +1,5 @@
+<!-- AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts. -->
+
 # Codebase Walkthrough
 
 This document explains the code in plain English. The goal is to make it easy for a grader or future developer to understand how the project is organized, how the agents work together, and where each feature lives.

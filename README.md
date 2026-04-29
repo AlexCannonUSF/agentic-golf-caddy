@@ -1,3 +1,5 @@
+<!-- AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts. -->
+
 # Agentic Golf Caddy
 
 A bounded multi-agent golf caddie built in Python and Streamlit.
@@ -298,6 +300,8 @@ This was completed as a solo project by Alex Cannon. Alex was responsible for th
 ## Code and source attribution
 
 Project code was developed for this class project by Alex Cannon. Claude and OpenAI ChatGPT/Codex were used as coding assistants for implementation support, refactoring, review, comments, and documentation. Alex reviewed, tested, and accepted the final code. No third-party source code was copied into this repository.
+
+Every tracked file includes a top-of-file AI disclosure. For JSON files, the disclosure is stored as `_ai_disclosure` metadata because JSON does not support comments.
 
 External data and service sources used by the application or benchmark profiles:
 - Open-Meteo Forecast API for live weather lookups.

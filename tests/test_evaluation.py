@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 from evaluation import EvaluationRunner, load_adaptive_cases, load_clarification_cases, load_deterministic_cases
 
 

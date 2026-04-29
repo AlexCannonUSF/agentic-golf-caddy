@@ -1,3 +1,4 @@
+# AI disclosure: This file was written or edited with help from OpenAI Codex through Alex Cannon's prompts.
 """Benchmark runner for deterministic, explanation, and bounded-hybrid variants."""
 
 from __future__ import annotations
