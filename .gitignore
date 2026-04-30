@@ -6,6 +6,7 @@ __pycache__/
 .DS_Store
 *.log
 ~$*
+Agentic_Golf_Caddy_Speaker_Prep.docx
 .pytest_cache/
 .mypy_cache/
 data/cache/
